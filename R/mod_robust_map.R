@@ -169,8 +169,8 @@ mod_robust_map_server <- function(
 
     # Display summary stats of robust MAP prior and MAP prior
     output[[BSAFE_ID$OUT_ROB_SUM_TBL]] <- shiny::renderText({
-      robust_summary() %>%
-        knitr::kable("html") %>%
+      robust_summary() |>
+        knitr::kable("html") |>
         kableExtra::kable_styling("striped")
     })
 

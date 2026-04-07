@@ -13,7 +13,7 @@ ae_list <- c("DILI", "Nausea", "Vomitting")
 
 bsafe_data <- tibble::tibble(
   STUDYID = factor(1:n_studies)
-) %>%
+) |>
   dplyr::mutate(
     HIST = sample(hist, size = n_studies, replace = TRUE),
     DOSE = sample(dose_list, size = n_studies, replace = TRUE),

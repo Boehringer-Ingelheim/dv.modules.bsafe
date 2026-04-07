@@ -134,7 +134,7 @@ for (g in groups) {
     col.names = c("Arm A", "Arm B"),
     # giving the table a title
     caption = paste0("Study IDs for Arm A and Arm B in comparison ", g)
-  ) %>%
+  ) |>
     kableExtra::kable_styling(font_size = 8) # manually adjusting the font size of the table
   # explicit printing is needed in order to display the table in the pdf
   print(table_comparisons)
@@ -147,7 +147,7 @@ for (g in groups) {
 
 
   list_table_1_1[[g]] <- cbind(as.data.frame(array_inci[, , 1, g, drop = F]), as.data.frame(array_inci[, , 2, g, drop = F]))
-  # list_table_1_1[[g]] <- list_table_1_1[[g]] %>% na.omit()
+  # list_table_1_1[[g]] <- list_table_1_1[[g]] |> na.omit()
   list_table_1_1[[g]][, c(3, 10)] <- round(list_table_1_1[[g]][, c(3, 10)] * 100, 1)
   list_table_1_1[[g]][, c(3, 10)] <- round(list_table_1_1[[g]][, c(3, 10)] * 100, 1)
   table_display_1 <- kableExtra::kable(list_table_1_1[[g]],
@@ -156,14 +156,14 @@ for (g in groups) {
     longtable = TRUE,
     col.names = rep(c("r", "n", "%", "mean", "median", "CRI L", "CRI U"), 2),
     caption = table_caption_1
-  ) %>%
-    kableExtra::kable_styling(font_size = 8) %>%
+  ) |>
+    kableExtra::kable_styling(font_size = 8) |>
     kableExtra::add_header_above( # adding extra separation layer of both Arms above the column names. They have to be equal to the names of the array/list
       c(
         "Arm A" = 7,
         "Arm B" = 7
       )
-    ) %>%
+    ) |>
     kableExtra::footnote(
       general_title = " ",
       footnote_as_chunk = TRUE,
@@ -184,21 +184,21 @@ for (g in groups) {
   )
   list_table_1_2[[g]] <- cbind(as.data.frame(array_inci_comp[, , 1, g, drop = F]), as.data.frame(array_inci_comp[, , 2, g, drop = F]))
   # list_table_1_2[[g]] <- as.data.frame(cbind(array_inci_comp[, , 1, g], array_inci_comp[, , 2, g]))
-  # list_table_1_2[[g]] <- list_table_1_2[[g]] %>% na.omit()
+  # list_table_1_2[[g]] <- list_table_1_2[[g]] |> na.omit()
   table_display_2 <- kableExtra::kable(list_table_1_2[[g]][, -6],
     format = "latex",
     booktabs = TRUE, digits = 3,
     longtable = TRUE,
     col.names = c(rep(c("Naive", "mean", "median", "CRI L", "CRI U"), 2), "A>B%"),
     caption = table_caption_2
-  ) %>%
-    kableExtra::kable_styling(font_size = 8) %>%
+  ) |>
+    kableExtra::kable_styling(font_size = 8) |>
     kableExtra::add_header_above(
       c(
         "Risk Difference" = 5,
         "Risk Ratio" = 6
       )
-    ) %>%
+    ) |>
     kableExtra::footnote(
       general_title = " ",
       footnote_as_chunk = TRUE,
@@ -224,21 +224,21 @@ for (g in groups) {
   )
   # list_table_2_1[[g]] <- as.data.frame(cbind(array_er[, , 1, g], array_er[, , 2, g]))
   list_table_2_1[[g]] <- cbind(as.data.frame(array_er[, , 1, g, drop = F]), as.data.frame(array_er[, , 2, g, drop = F]))
-  # list_table_2_1[[g]] <- list_table_2_1[[g]] %>% na.omit()
+  # list_table_2_1[[g]] <- list_table_2_1[[g]] |> na.omit()
   table_display_3 <- kableExtra::kable(list_table_2_1[[g]],
     format = "latex",
     booktabs = TRUE, digits = 3,
     longtable = TRUE,
     col.names = rep(c("Naive", "mean", "median", "CRI L", "CRI U"), 2),
     caption = table_caption_3
-  ) %>%
-    kableExtra::kable_styling(font_size = 8) %>%
+  ) |>
+    kableExtra::kable_styling(font_size = 8) |>
     kableExtra::add_header_above(
       c(
         "Arm A" = 5,
         "Arm B" = 5
       )
-    ) %>%
+    ) |>
     kableExtra::footnote(
       general_title = " ",
       footnote_as_chunk = TRUE,
@@ -262,7 +262,7 @@ for (g in groups) {
   )
   list_table_2_2[[g]] <- cbind(as.data.frame(array_er_comp[, , 1, g, drop = F]), as.data.frame(array_er_comp[, , 2, g, drop = F]))
   # list_table_2_2[[g]] <- as.data.frame(cbind(array_er_comp[, , 1, g], array_er_comp[, , 2, g]))
-  # list_table_2_2[[g]] <- list_table_2_2[[g]] %>% na.omit()
+  # list_table_2_2[[g]] <- list_table_2_2[[g]] |> na.omit()
   if (length(list_table_2_2[[g]]) == 0) {
     print("Analysis is not applicable!")
   } else {
@@ -272,14 +272,14 @@ for (g in groups) {
       longtable = TRUE,
       col.names = c(rep(c("Naive", "mean", "median", "CRI L", "CRI U"), 2), "A>B%"),
       caption = table_caption_4
-    ) %>%
-      kableExtra::kable_styling(font_size = 8) %>%
+    ) |>
+      kableExtra::kable_styling(font_size = 8) |>
       kableExtra::add_header_above(
         c(
           "Risk Difference" = 5,
           "Risk Ratio" = 6
         )
-      ) %>%
+      ) |>
       kableExtra::footnote(
         general_title = " ",
         footnote_as_chunk = TRUE,

@@ -172,8 +172,8 @@ mod_new_trial_analysis_server <- function(
     )
 
     output[[BSAFE_ID$OUT_COMPARE_SUM_TBL]] <- shiny::renderText({
-      compare_summary_table() %>%
-        knitr::kable("html") %>%
+      compare_summary_table() |>
+        knitr::kable("html") |>
         kableExtra::kable_styling("striped")
     })
 

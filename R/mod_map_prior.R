@@ -193,8 +193,8 @@ mod_map_prior_server <- function(id, data, analysis_type, safety_topic, treatmen
 
     # Display model summary output
     output[[BSAFE_ID$OUT_MAP_PRIOR_SUM_TBL]] <- shiny::renderText({
-      map_summary_table() %>%
-        knitr::kable("html") %>%
+      map_summary_table() |>
+        knitr::kable("html") |>
         kableExtra::kable_styling("striped")
     })
 
