@@ -407,10 +407,10 @@ mod_bsafe <- function(module_id, dataset_name) {
       d <- afmm[["unfiltered_plus_filter_info"]]()
       df <- d[["unfiltered_dataset_list"]][[dataset_name]]
       df_mask <- d[["filter_info"]][["result"]][["filter_info"]][[dataset_name]][["mask"]]
-      df <- df[df_mask, , drop=FALSE]
+      df <- df[df_mask, , drop = FALSE]
       df
     })
-    bsafe_server("bsafe",dataset = dataset)
+    bsafe_server("bsafe", dataset = dataset)
       
     },
     module_id = module_id
