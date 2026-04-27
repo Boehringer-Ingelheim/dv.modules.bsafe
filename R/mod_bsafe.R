@@ -163,13 +163,16 @@ bsafe_server <- function(
     id,
     dataset) {
   module <- function(input, output, session) {
-    shiny::addResourcePath("www", system.file("www", package = "dv.modules.bsafe"))
+    shiny::addResourcePath(
+      "www",
+      system.file("www", package = "dv.modules.bsafe")
+    )
 
     # global variables --------------------------------------------------------
 
-    ns <- session[["ns"]]
+    ns <- session[["ns"]] # nolintr
 
-    ae_summary_data <- NULL
+    ae_summary_data <- NULL # nolintr
 
     # data input/checks/transformation ----------------------------------------
     receive_data <- shinymeta::metaReactive2(
@@ -246,7 +249,6 @@ bsafe_server <- function(
     # Data table preparation
     sel_analysis <- mod_select_analysis_server("sel_analysis", data_preparation)
     selected_data <- sel_analysis[["data"]] # TODO: Careful with reactive overlap once poc is ready
-    seed <- sel_analysis[["seed"]]
 
     map_prior <- mod_map_prior_server(
       "map_prior",
@@ -310,7 +312,9 @@ bsafe_server <- function(
 
     # nolint start
 
-    tmpfolder <- tempfile(tmpdir = system.file("www", package = "dv.modules.bsafe"))
+    tmpfolder <- tempfile(
+      tmpdir = system.file("www", package = "dv.modules.bsafe")
+    )
     dir.create(tmpfolder)
 
     download_results <- mod_simulation_server(
@@ -321,7 +325,8 @@ bsafe_server <- function(
 
     shiny::onStop(function() {
       unlink(
-        system.file(paste0("/www", strsplit(tmpfolder, "www")[[1]][2]),
+        system.file(
+          paste0("/www", strsplit(tmpfolder, "www")[[1]][2]),
           package = "dv.modules.bsafe",
           mustWork = TRUE
         ),
@@ -330,7 +335,6 @@ bsafe_server <- function(
     })
 
     # nolint end
-
 
     # return ----
 

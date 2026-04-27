@@ -148,7 +148,10 @@ local({
     purrr::walk(button_id, function(id) {
       app$click(id)
       app$wait_for_idle()
-      expect_error(class = "shiny.silent.error", shiny::isolate(app$get_values()[["export"]][["r"]][["map_mcmc"]]()))
+      expect_error(
+        class = "shiny.silent.error",
+        shiny::isolate(app$get_values()[["export"]][["r"]][["map_mcmc"]]())
+      )
       app$click(tns("submit"))
       app$wait_for_idle()
     })
@@ -157,12 +160,15 @@ local({
 
     app$set_inputs(!!tns(BSAFE_ID$SEL_HIST_BORROW) := "Large")
     app$wait_for_idle()
-    expect_error(class = "shiny.silent.error", shiny::isolate(app$get_values()[["export"]][["r"]][["map_mcmc"]]()))
+    expect_error(
+      class = "shiny.silent.error",
+      shiny::isolate(app$get_values()[["export"]][["r"]][["map_mcmc"]]())
+    )
 
     # sel_tau
     # Only one value in sel tau is available
-    # app$set_inputs(!!tns(BSAFE_ID$SEL_TAU) := "Half-normal")
-    # app$wait_for_idle()
-    # expect_error(class = "shiny.silent.error", shiny::isolate(app$get_values()[["export"]][["r"]][["map_mcmc"]]()))
+    # nolintr app$set_inputs(!!tns(BSAFE_ID$SEL_TAU) := "Half-normal")
+    # nolintr app$wait_for_idle()
+    # nolintr expect_error(class = "shiny.silent.error", shiny::isolate(app$get_values()[["export"]][["r"]][["map_mcmc"]]()))
   })
 })

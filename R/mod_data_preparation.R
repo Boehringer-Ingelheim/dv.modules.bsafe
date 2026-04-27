@@ -66,16 +66,6 @@ mod_data_preparation_server <- function(id, data) {
 
     shiny::setBookmarkExclude(names = BSAFE_ID$BUT_ADD_ARM)
 
-
-
-    get_names <- function(name, length) {
-      helper <- paste0(name, 1)
-      for (i in 2:length) {
-        helper <- c(helper, paste0(name, i))
-      }
-      helper
-    }
-
     # Initial menus
 
     shiny::observe({

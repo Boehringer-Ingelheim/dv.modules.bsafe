@@ -73,58 +73,39 @@ print(params$ae_summary_log)
 for (g in groups) {
   # pasting together the chosen arms of ARM A aka treatment arm and separating them by comma as well as removing the last comma
   ARMS_ARM_A <- substr(
-    paste0(cb_list_trt[[paste0("grp", g)]],
-      ", ",
-      collapse = ""
-    ),
+    paste0(cb_list_trt[[paste0("grp", g)]], ", ", collapse = ""),
     STRING_START,
-    nchar(paste0(cb_list_trt[[paste0("grp", g)]],
-      ", ",
-      collapse = ""
-    )) - COMMA_PLUS_ONE_SPACE
+    nchar(paste0(cb_list_trt[[paste0("grp", g)]], ", ", collapse = "")) -
+      COMMA_PLUS_ONE_SPACE
   )
   # pasting together the chosen arms of ARM B aka control arm and separating them by comma as well as removing the last comma
   ARMS_ARM_B <- substr(
-    paste0(cb_list_ctr[[paste0("grp", g)]],
-      ", ",
-      collapse = ""
-    ),
+    paste0(cb_list_ctr[[paste0("grp", g)]], ", ", collapse = ""),
     STRING_START,
-    nchar(paste0(cb_list_ctr[[paste0("grp", g)]],
-      ", ",
-      collapse = ""
-    )) - COMMA_PLUS_ONE_SPACE
+    nchar(paste0(cb_list_ctr[[paste0("grp", g)]], ", ", collapse = "")) -
+      COMMA_PLUS_ONE_SPACE
   )
   # list element as data frame for kableExtra
   list_comparisons[[g]] <- as.data.frame(
     cbind(
       # pasting together the IDs of ARM A aka treatment arm and separating them by comma as well as removing the last comma
       substr(
-        paste0(ID_trt_list[[paste0("grp", g)]],
-          ", ",
-          collapse = ""
-        ),
+        paste0(ID_trt_list[[paste0("grp", g)]], ", ", collapse = ""),
         STRING_START,
-        nchar(paste0(ID_trt_list[[paste0("grp", g)]],
-          ", ",
-          collapse = ""
-        )) - COMMA_PLUS_ONE_SPACE
+        nchar(paste0(ID_trt_list[[paste0("grp", g)]], ", ", collapse = "")) -
+          COMMA_PLUS_ONE_SPACE
       ),
       # same with ARM B or control arm
       substr(
-        paste0(ID_ctr_list[[paste0("grp", g)]],
-          ", ",
-          collapse = ""
-        ),
+        paste0(ID_ctr_list[[paste0("grp", g)]], ", ", collapse = ""),
         STRING_START,
-        nchar(paste0(ID_ctr_list[[paste0("grp", g)]],
-          ", ",
-          collapse = ""
-        )) - COMMA_PLUS_ONE_SPACE
+        nchar(paste0(ID_ctr_list[[paste0("grp", g)]], ", ", collapse = "")) -
+          COMMA_PLUS_ONE_SPACE
       )
     )
   )
-  table_comparisons <- kableExtra::kable(list_comparisons[[g]],
+  table_comparisons <- kableExtra::kable(
+    list_comparisons[[g]],
     format = "latex",
     # to enable a stable width of the table
     booktabs = TRUE,
@@ -145,20 +126,31 @@ for (g in groups) {
     ARMS_ARM_B
   )
 
-
-  list_table_1_1[[g]] <- cbind(as.data.frame(array_inci[, , 1, g, drop = FALSE]), as.data.frame(array_inci[, , 2, g, drop = FALSE]))  
-  # list_table_1_1[[g]] <- list_table_1_1[[g]] |> na.omit()
-  list_table_1_1[[g]][, c(3, 10)] <- round(list_table_1_1[[g]][, c(3, 10)] * 100, 1)
-  list_table_1_1[[g]][, c(3, 10)] <- round(list_table_1_1[[g]][, c(3, 10)] * 100, 1)
-  table_display_1 <- kableExtra::kable(list_table_1_1[[g]],
+  list_table_1_1[[g]] <- cbind(
+    as.data.frame(array_inci[, , 1, g, drop = FALSE]),
+    as.data.frame(array_inci[, , 2, g, drop = FALSE])
+  )
+  # nolintr list_table_1_1[[g]] <- list_table_1_1[[g]] |> na.omit()
+  list_table_1_1[[g]][, c(3, 10)] <- round(
+    list_table_1_1[[g]][, c(3, 10)] * 100,
+    1
+  )
+  list_table_1_1[[g]][, c(3, 10)] <- round(
+    list_table_1_1[[g]][, c(3, 10)] * 100,
+    1
+  )
+  table_display_1 <- kableExtra::kable(
+    list_table_1_1[[g]],
     format = "latex",
-    booktabs = TRUE, digits = 3,
+    booktabs = TRUE,
+    digits = 3,
     longtable = TRUE,
     col.names = rep(c("r", "n", "%", "mean", "median", "CRI L", "CRI U"), 2),
     caption = table_caption_1
   ) |>
     kableExtra::kable_styling(font_size = 8) |>
-    kableExtra::add_header_above( # adding extra separation layer of both Arms above the column names. They have to be equal to the names of the array/list
+    kableExtra::add_header_above(
+      # adding extra separation layer of both Arms above the column names. They have to be equal to the names of the array/list
       c(
         "Arm A" = 7,
         "Arm B" = 7
@@ -182,14 +174,22 @@ for (g in groups) {
     " vs. Arm B: ",
     ARMS_ARM_B
   )
-  list_table_1_2[[g]] <- cbind(as.data.frame(array_inci_comp[, , 1, g, drop = FALSE]), as.data.frame(array_inci_comp[, , 2, g, drop = FALSE]))
-  # list_table_1_2[[g]] <- as.data.frame(cbind(array_inci_comp[, , 1, g], array_inci_comp[, , 2, g]))
-  # list_table_1_2[[g]] <- list_table_1_2[[g]] |> na.omit()
-  table_display_2 <- kableExtra::kable(list_table_1_2[[g]][, -6],
+  list_table_1_2[[g]] <- cbind(
+    as.data.frame(array_inci_comp[, , 1, g, drop = FALSE]),
+    as.data.frame(array_inci_comp[, , 2, g, drop = FALSE])
+  )
+  # nolintr list_table_1_2[[g]] <- as.data.frame(cbind(array_inci_comp[, , 1, g], array_inci_comp[, , 2, g]))
+  # nolintr list_table_1_2[[g]] <- list_table_1_2[[g]] |> na.omit()
+  table_display_2 <- kableExtra::kable(
+    list_table_1_2[[g]][, -6],
     format = "latex",
-    booktabs = TRUE, digits = 3,
+    booktabs = TRUE,
+    digits = 3,
     longtable = TRUE,
-    col.names = c(rep(c("Naive", "mean", "median", "CRI L", "CRI U"), 2), "A>B%"),
+    col.names = c(
+      rep(c("Naive", "mean", "median", "CRI L", "CRI U"), 2),
+      "A>B%"
+    ),
     caption = table_caption_2
   ) |>
     kableExtra::kable_styling(font_size = 8) |>
@@ -222,12 +222,17 @@ for (g in groups) {
     " vs. Arm B: ",
     ARMS_ARM_B
   )
-  # list_table_2_1[[g]] <- as.data.frame(cbind(array_er[, , 1, g], array_er[, , 2, g]))
-  list_table_2_1[[g]] <- cbind(as.data.frame(array_er[, , 1, g, drop = FALSE]), as.data.frame(array_er[, , 2, g, drop = FALSE]))
-  # list_table_2_1[[g]] <- list_table_2_1[[g]] |> na.omit()
-  table_display_3 <- kableExtra::kable(list_table_2_1[[g]],
+  # nolintr list_table_2_1[[g]] <- as.data.frame(cbind(array_er[, , 1, g], array_er[, , 2, g]))
+  list_table_2_1[[g]] <- cbind(
+    as.data.frame(array_er[, , 1, g, drop = FALSE]),
+    as.data.frame(array_er[, , 2, g, drop = FALSE])
+  )
+  # nolintr list_table_2_1[[g]] <- list_table_2_1[[g]] |> na.omit()
+  table_display_3 <- kableExtra::kable(
+    list_table_2_1[[g]],
     format = "latex",
-    booktabs = TRUE, digits = 3,
+    booktabs = TRUE,
+    digits = 3,
     longtable = TRUE,
     col.names = rep(c("Naive", "mean", "median", "CRI L", "CRI U"), 2),
     caption = table_caption_3
@@ -260,17 +265,25 @@ for (g in groups) {
     " vs. Arm B: ",
     ARMS_ARM_B
   )
-  list_table_2_2[[g]] <- cbind(as.data.frame(array_er_comp[, , 1, g, drop = FALSE]), as.data.frame(array_er_comp[, , 2, g, drop = FALSE]))
-  # list_table_2_2[[g]] <- as.data.frame(cbind(array_er_comp[, , 1, g], array_er_comp[, , 2, g]))
-  # list_table_2_2[[g]] <- list_table_2_2[[g]] |> na.omit()
+  list_table_2_2[[g]] <- cbind(
+    as.data.frame(array_er_comp[, , 1, g, drop = FALSE]),
+    as.data.frame(array_er_comp[, , 2, g, drop = FALSE])
+  )
+  # nolintr list_table_2_2[[g]] <- as.data.frame(cbind(array_er_comp[, , 1, g], array_er_comp[, , 2, g]))
+  # nolintr list_table_2_2[[g]] <- list_table_2_2[[g]] |> na.omit()
   if (length(list_table_2_2[[g]]) == 0) {
     print("Analysis is not applicable!")
   } else {
-    table_display_4 <- kableExtra::kable(list_table_2_2[[g]][, -6],
+    table_display_4 <- kableExtra::kable(
+      list_table_2_2[[g]][, -6],
       format = "latex",
-      booktabs = TRUE, digits = 3,
+      booktabs = TRUE,
+      digits = 3,
       longtable = TRUE,
-      col.names = c(rep(c("Naive", "mean", "median", "CRI L", "CRI U"), 2), "A>B%"),
+      col.names = c(
+        rep(c("Naive", "mean", "median", "CRI L", "CRI U"), 2),
+        "A>B%"
+      ),
       caption = table_caption_4
     ) |>
       kableExtra::kable_styling(font_size = 8) |>
