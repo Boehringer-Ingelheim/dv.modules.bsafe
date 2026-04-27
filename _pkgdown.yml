@@ -1,23 +1,24 @@
+url: https://boehringer-ingelheim.github.io/dv.modules.bsafe
 
-url: https://https://boehringer-ingelheim.github.io/dv.modules.bsafe
 template:
   bootstrap: 5
-  
+
 navbar:
   type: inverted
   structure:
-    left: [intro, reference, articles, tutorials, news, qc]
-    right:
-    - icon: fa-github
-      href: https://github.com/boehringer-ingelheim.github/dv.modules.bsafe
+    left:  [intro, reference, articles, tutorials, news, qc]
+    right: [search, github]
   components:
     qc:
       text: Quality Control
-      href: articles/qc.html  
+      href: articles/qc.html
+    github:
+      icon: fa-github
+      href: https://github.com/boehringer-ingelheim/dv.modules.bsafe
+      aria-label: GitHub
 
 articles:
-
-- title: Quality Control
-  desc: Quality Control
-  contents:
-  - qc
+  - title: Quality Control
+    desc: Quality Control
+    contents:
+      - qc
